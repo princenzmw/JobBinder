@@ -1,8 +1,22 @@
-# React + Vite
+# JobBinder: Connecting Careers
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+_Discover your future with a click._
 
-Currently, two official plugins are available:
+## Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**JobBinder** is designed to streamline the job search and application process by offering a user-friendly platform that connects `job seekers` with `potential employers`. The platform aims to resolve the disconnect between the numerous available positions and the job-hunting community, which struggles to find suitable employment.
+
+This project is globally relevant, as it uses internet accessibility to bridge the gaps in the job market and is not dependent on a specific locale.
+
+It is designed as the final project for the `ALX foundation` phase (`Portfolio project`).
+
+## Teck stack
+
+- JavaScript (ES6+)
+- HTML & CSS
+- Tailwind CSS
+- React.js
+- Node.js
+- Git and GitHub
+
+React was chosen for front-end development due to its component-based architecture, which allows for a more scalable and maintainable codebase.
