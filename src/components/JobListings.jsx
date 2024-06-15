@@ -10,8 +10,8 @@ const JobListings = ({ isHome = false }) => {
   useEffect(() => {
     const fetchJobs = async () => {
       const apiUrl = isHome
-        ? "/api/jobs?_limit=3"
-        : "/api/jobs?_sort=title&_order=asc";
+        ? `${import.meta.env.VITE_API_BASE_URL}/jobs?_limit=3`
+        : `${import.meta.env.VITE_API_BASE_URL}/jobs?_sort=title&_order=asc`;
       try {
         const res = await axios.get(apiUrl);
         setJobs(res.data);

@@ -7,10 +7,10 @@ export default defineConfig({
     port: 8000,
     proxy: {
       '/api': {
-        target: 'https://jobbinder.onrender.com',
+        target: process.env.VITE_API_BASE_URL,
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
-  },
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  }
 });
