@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const Hero = ({
   title = "Welcome to JobBinder",
   subtitle = "Find the job that fits your skill set",
@@ -15,4 +17,10 @@ const Hero = ({
     </section>
   );
 };
+
+Hero.propTypes = {
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+};
+
 export default Hero;
