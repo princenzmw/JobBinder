@@ -4,6 +4,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
+  LoaderFunction,
 } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
@@ -14,9 +15,24 @@ import jobLoader from "./loaders/jobLoader";
 import AddJobPage from "./pages/AddJobPage";
 import EditJobPage from "./pages/EditJobPage";
 
+interface Job {
+  id: string;
+  title: string;
+  type: string;
+  location: string;
+  description: string;
+  salary: string;
+  company: {
+    name: string;
+    description: string;
+    contactEmail: string;
+    contactPhone: string;
+  };
+}
+
 const App = () => {
   // Add New Job
-  const addJob = async (newJob) => {
+  const addJob = async (newJob: Job) => {
     try {
       const res = await axios.post("/api/jobs", newJob, {
         headers: {
@@ -30,7 +46,7 @@ const App = () => {
   };
 
   // Delete Job
-  const deleteJob = async (id) => {
+  const deleteJob = async (id: string) => {
     try {
       const res = await axios.delete(`/api/jobs/${id}`);
       return res.data;
@@ -40,7 +56,7 @@ const App = () => {
   };
 
   // Update Job
-  const updateJob = async (job) => {
+  const updateJob = async (job: Job) => {
     try {
       const res = await axios.put(`/api/jobs/${job.id}`, job, {
         headers: {
@@ -62,12 +78,12 @@ const App = () => {
         <Route
           path="/edit-job/:id"
           element={<EditJobPage updateJobSubmit={updateJob} />}
-          loader={jobLoader}
+          loader={jobLoader as LoaderFunction}
         />
         <Route
           path="/jobs/:id"
           element={<JobPage deleteJob={deleteJob} />}
-          loader={jobLoader}
+          loader={jobLoader as LoaderFunction}
         />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

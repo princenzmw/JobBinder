@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import JobListing from "./JobListing";
 import Spinner from "./Spinner";
 import axios from "axios";
 import PropTypes from "prop-types";
 
 // Utility function to parse salary string and convert it to a number
-const parseSalary = (salaryStr) => {
+const parseSalary = (salaryStr: string): number => {
   const matches = salaryStr.match(/\$([0-9]+)K\s*-\s*\$([0-9]+)K/);
   if (matches) {
     const minSalary = parseInt(matches[1], 10) * 1000;
@@ -15,8 +15,30 @@ const parseSalary = (salaryStr) => {
   return 0; // Default value if parsing fails
 };
 
-const JobListings = ({ isHome = false }) => {
-  const [jobs, setJobs] = useState([]);
+interface RawJob {
+  id: string;
+  title: string;
+  salary: string; // Salary as string in raw data
+  description: string;
+  type: string;
+  location: string;
+}
+
+interface Job {
+  id: string;
+  title: string;
+  salary: number; // Salary as number after parsing
+  description: string;
+  type: string;
+  location: string;
+}
+
+interface JobListingsProps {
+  isHome?: boolean;
+}
+
+const JobListings: React.FC<JobListingsProps> = ({ isHome = false }) => {
+  const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,9 +48,9 @@ const JobListings = ({ isHome = false }) => {
         : `${import.meta.env.VITE_API_BASE_URL}/jobs?_sort=title&_order=asc`;
       try {
         const res = await axios.get(apiUrl);
-        const jobs = res.data.map((job) => ({
+        const jobs: Job[] = res.data.map((job: RawJob) => ({
           ...job,
-          salary: parseSalary(job.salary),
+          salary: parseSalary(job.salary), // Parse salary to number
         }));
         setJobs(jobs);
       } catch (error) {

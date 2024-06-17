@@ -4,14 +4,32 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 
-const JobPage = ({ deleteJob }) => {
+interface Job {
+  id: string;
+  title: string;
+  type: string;
+  location: string;
+  description: string;
+  salary: string;
+  company: {
+    name: string;
+    description: string;
+    contactEmail: string;
+    contactPhone: string;
+  };
+}
+
+interface JobPageProps {
+  deleteJob: (jobId: string) => void;
+}
+
+const JobPage: React.FC<JobPageProps> = ({ deleteJob }) => {
   const navigate = useNavigate();
-  const { id } = useParams();
-  const job = useLoaderData();
+  const { id } = useParams<{ id: string }>();
+  const job = useLoaderData() as Job;
 
-  console.log(id);
-
-  const onDeleteClick = (jobId) => {
+  const onDeleteClick = (jobId: string) => {
+    jobId = id!;
     const confirm = window.confirm(
       "Are you sure you want to delete this listing?"
     );
@@ -86,7 +104,6 @@ const JobPage = ({ deleteJob }) => {
                 <h3 className="text-xl">Contact Phone:</h3>
 
                 <p className="my-2 bg-indigo-100 p-2 font-bold">
-                  {" "}
                   {job.company.contactPhone}
                 </p>
               </div>

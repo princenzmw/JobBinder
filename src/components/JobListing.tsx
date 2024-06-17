@@ -1,9 +1,22 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaMapMarker } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const JobListing = ({ job }) => {
+interface Job {
+  description: string;
+  type: string;
+  title: string;
+  salary: number;
+  location: string;
+  id: string;
+}
+
+interface JobListingProps {
+  job: Job;
+}
+
+const JobListing: React.FC<JobListingProps> = ({ job }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   let description = job.description;
@@ -52,12 +65,12 @@ const JobListing = ({ job }) => {
 
 JobListing.propTypes = {
   job: PropTypes.shape({
-    description: PropTypes.string,
-    type: PropTypes.string,
-    title: PropTypes.string,
-    salary: PropTypes.number,
-    location: PropTypes.string,
-    id: PropTypes.string,
+    description: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    salary: PropTypes.number.isRequired,
+    location: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
   }).isRequired,
 };
 
